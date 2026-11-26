@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Egon Bachy × ASOLAR</title>
+<meta name="description" content="Candidature d'Egon Bachy, étudiant UX/UI, pour ASOLAR : cinq cartes, un joker, de quoi jouer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Ma main : cartes blanches à bord noir sur fond papier, rouge carte à jouer */
+  --ground:#F2EFE8; --card:#FFFFFF; --ink:#15171A; --muted:#575B60;
+  --red:#C8281E; --serif:'DM Serif Display',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55}
+a{color:var(--red)}a:hover{color:var(--ink)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header.top{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between;align-items:center;padding-top:22px;padding-bottom:22px}
+.brand{font-family:var(--serif);font-size:22px;color:var(--ink);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:15px;font-weight:500}
+nav a{color:var(--ink)}
+section{padding:56px 0}
+.eyebrow{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:400}
+h1{font-size:clamp(54px,10vw,104px);line-height:.98;margin-top:10px;text-wrap:balance}
+h2{font-size:clamp(34px,5vw,48px);line-height:1.05;margin-top:6px;text-wrap:balance}
+.lead{font-size:22px;max-width:620px;margin:22px 0 0}
+.intro{max-width:620px;margin:12px 0 0;color:var(--muted)}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-block;font-weight:700;text-decoration:none;padding:14px 24px;border-radius:999px;border:2px solid var(--ink);color:var(--ink);min-height:44px}
+.btn.main{background:var(--ink);color:var(--ground)}
+.fan{display:flex;justify-content:flex-start;margin-top:48px;padding-left:20px}
+.fan span{width:86px;height:122px;border:2px solid var(--ink);border-radius:10px;background:var(--card);margin-left:-26px;display:flex;align-items:flex-start;justify-content:flex-start;padding:8px 10px;font-family:var(--serif);font-size:22px;box-shadow:2px 3px 0 var(--ink)}
+.fan span:nth-child(1){transform:rotate(-14deg)}.fan span:nth-child(2){transform:rotate(-7deg)}.fan span:nth-child(3){transform:rotate(0)}.fan span:nth-child(4){transform:rotate(7deg)}.fan span:nth-child(5){transform:rotate(14deg)}
+.fan span:nth-child(6){transform:rotate(21deg);background:var(--ink);color:var(--ground)}
+.hand{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}
+@media (max-width:860px){.hand{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.hand{grid-template-columns:minmax(0,1fr)}}
+.pc{display:block;width:100%;text-align:left;font-family:inherit;color:var(--ink);background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:20px 22px 22px;cursor:pointer;box-shadow:4px 5px 0 var(--ink);min-height:320px;position:relative}
+.pc:hover{transform:translate(-1px,-1px);box-shadow:5px 6px 0 var(--ink)}
+.pc .rank{display:block;font-family:var(--serif);font-size:34px;line-height:1;color:var(--red)}
+.pc .dom{display:block;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.pc .name{display:block;font-family:var(--serif);font-size:30px;line-height:1.08;margin-top:34px}
+.pc .tag{display:block;margin-top:10px;font-size:16px;color:var(--muted)}
+.pc .more{display:block;position:absolute;left:22px;bottom:18px;font-size:14px;font-weight:700;color:var(--red)}
+.pc .back{display:none}
+.pc[aria-pressed="true"] .front{display:none}
+.pc[aria-pressed="true"] .back{display:block}
+.pc .back b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:12px}
+.pc .back b:first-child{margin-top:0}
+.pc .back span{display:block;font-size:16px;margin-top:2px}
+.pc.joker{background:var(--ink);color:var(--ground)}
+.pc.joker .rank{color:#FF8A7E}.pc.joker .dom,.pc.joker .tag{color:#C9C5BC}
+.pc.joker .more,.pc.joker .back b{color:#FF8A7E}
+.pc.joker{box-shadow:4px 5px 0 var(--red)}
+.pc.joker:hover{box-shadow:5px 6px 0 var(--red)}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+@media (max-width:720px){.tiles{grid-template-columns:minmax(0,1fr)}}
+.tile{background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:20px 22px}
+.tile h3{font-size:22px;color:var(--red);margin-bottom:6px}
+.tile p{margin:0;font-size:16px}
+.todo{margin-top:16px;border:2px dashed var(--ink);border-radius:12px;padding:16px 20px;font-size:16px}
+.map{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px}
+.map button,.map .center{min-height:92px;border-radius:12px;border:2px solid var(--ink);padding:14px 16px;font-family:inherit;text-align:left}
+.map button{background:var(--card);color:var(--ink);font-size:17px;font-weight:700;cursor:pointer}
+.map button small{display:block;font-weight:400;font-size:14px;margin-top:4px}
+.map button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.map .center{background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--serif);font-size:clamp(20px,3vw,30px)}
+.detail{margin-top:12px;background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:22px}
+.detail h3{font-size:26px;margin-bottom:8px}
+.detail p{margin:0 0 10px}
+.detail ul{margin:0;padding-left:22px;color:var(--muted)}
+.contact{margin-top:20px;background:var(--red);color:#fff;border:2px solid var(--ink);border-radius:12px;padding:22px}
+.contact b{display:block;font-family:var(--serif);font-weight:400;font-size:24px}
+.contact a{color:#fff}
+footer{border-top:2px solid var(--ink);padding:20px 0;font-size:14px}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <a class="brand" href="#top">Egon Bachy</a>
+  <nav aria-label="Navigation principale">
+    <a href="#asolar">ASOLAR</a><a href="#main">Ma main</a><a href="#carte">Carte mentale</a><a href="#pourquoi">Pourquoi moi</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+<section id="top" style="padding-top:32px">
+  <div class="eyebrow">Candidature ASOLAR · UX/UI Design · 26 novembre 2026</div>
+  <h1>Voici ma main.</h1>
+  <p class="lead">Cinq cartes et un joker. ASOLAR dit que tout devient possible : je viens avec de quoi jouer.</p>
+  <div class="btns">
+    <a class="btn main" href="#main">Retourner mes cartes</a>
+    <a class="btn" href="#pourquoi">Pourquoi m'engager</a>
+  </div>
+  <div class="fan" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>J</span></div>
+</section>
+
+<section id="asolar">
+  <div class="eyebrow">Repérage</div>
+  <h2>Ce que j'ai lu sur ASOLAR</h2>
+  <div class="tiles">
+    <div class="tile"><h3>Les métiers</h3><p>Agence créative belge : logos, branding, mise en page de magazines, publicité créative. Deux rubriques, Retail et Pour les Artistes.</p></div>
+    <div class="tile"><h3>Le style</h3><p>Des compositions élégantes, modernes et audacieuses. Un slogan qui ouvre tout : « Et tout devient possible ».</p></div>
+    <div class="tile"><h3>La culture</h3><p>Audace, émotion, curiosité, collaboration. Un ton enthousiaste, et la conviction qu'un portfolio doit raconter une histoire.</p></div>
+  </div>
+  <div class="todo"><b>[À COMPLÉTER]</b> Une publication de l'Instagram d'ASOLAR (@asolar.be) qui m'a marqué, et pourquoi, en deux phrases.</div>
+</section>
+
+<section id="main">
+  <div class="eyebrow">Ma culture</div>
+  <h2>Cinq cartes et un joker</h2>
+  <p class="intro">Cinq références, quatre domaines : sport, design, art, histoire de l'art, musique. Clique sur une carte pour la retourner.</p>
+  <div class="hand" id="hand">
+
+    <button type="button" class="pc" aria-pressed="false">
+      <span class="front"><span class="rank">1</span><span class="dom">Sport</span><span class="name">David Belle et le parkour</span><span class="tag">Aller de A à B sans geste inutile.</span><span class="more">Retourner la carte</span></span>
+      <span class="back"><b>Ce que c'est</b><span>L'art du déplacement, né en France avec les Yamakasi : franchir les obstacles de la ville comme un parcours.</span><b>Pour moi</b><span>Je le pratique. Il m'a appris que le geste inutile fait tomber.</span><b>Pour ASOLAR</b><span>Mes parcours utilisateur cherchent le même chemin fluide.</span></span>
+    </button>
+
+    <button type="button" class="pc" aria-pressed="false">
+      <span class="front"><span class="rank">2</span><span class="dom">Design</span><span class="name">Dieter Rams</span><span class="tag">Aussi peu de design que possible.</span><span class="more">Retourner la carte</span></span>
+      <span class="back"><b>Ce que c'est</b><span>Designer industriel chez Braun, auteur des dix principes du bon design.</span><b>Pour moi</b><span>Trois de ses principes ont guidé mon application Passoire.</span><b>Pour ASOLAR</b><span>Une identité audacieuse reste lisible quand chaque élément a une raison d'être.</span></span>
+    </button>
+
+    <button type="button" class="pc" aria-pressed="false">
+      <span class="front"><span class="rank">3</span><span class="dom">Art</span><span class="name">Manet, Le Déjeuner sur l'herbe</span><span class="tag">1863 : refusé, puis célèbre.</span><span class="more">Retourner la carte</span></span>
+      <span class="back"><b>Ce que c'est</b><span>Refusé par le jury du Salon, exposé au Salon des Refusés, il choque en détournant les codes d'une tradition qu'il cite.</span><b>Pour moi</b><span>C'est la base de mon projet Le Déjeuner sur le feed.</span><b>Pour ASOLAR</b><span>Surprendre en détournant un sujet connu, c'est le métier de la publicité créative.</span></span>
+    </button>
+
+    <button type="button" class="pc" aria-pressed="false">
+      <span class="front"><span class="rank">4</span><span class="dom">Histoire de l'art</span><span class="name">Le futurisme et Boccioni</span><span class="tag">Rendre le mouvement visible.</span><span class="more">Retourner la carte</span></span>
+      <span class="back"><b>Ce que c'est</b><span>Mouvement italien des années 1910 qui voulait montrer la vitesse. Boccioni : Formes uniques de la continuité dans l'espace (1913).</span><b>Pour moi</b><span>C'est le parkour avant l'heure : le mouvement dans une forme fixe.</span><b>Pour ASOLAR</b><span>Faire sentir le mouvement sur une affiche ou une page de magazine.</span></span>
+    </button>
+
+    <button type="button" class="pc" aria-pressed="false">
+      <span class="front"><span class="rank">5</span><span class="dom">Musique</span><span class="name">TeddyBear, chanteur belge</span><span class="tag">Sortir de l'ombre.</span><span class="more">Retourner la carte</span></span>
+      <span class="back"><b>Ce que c'est</b><span>Jules Scinta, de Mons : batteur de l'ombre devenu chanteur, dont la sincérité est la signature.</span><b>Pour moi</b><span>Il m'inspire à oser et à écrire sans fard.</span><b>Pour ASOLAR</b><span>Une identité forte et reconnaissable, comme une marque.</span></span>
+    </button>
+
+    <button type="button" class="pc joker" aria-pressed="false">
+      <span class="front"><span class="rank">J</span><span class="dom">Le joker</span><span class="name">Ma folie créative</span><span class="tag">Un jeu de cartes pour ASOLAR.</span><span class="more">Retourner la carte</span></span>
+      <span class="back"><b>L'idée</b><span>Ma candidature arrive dans un vrai jeu de cartes imprimé : les 5 références et un joker avec un QR code vers ce site.</span><b>Jusqu'où j'irais</b><span>Dessiner, imprimer, découper et livrer le jeu moi-même.</span></span>
+    </button>
+
+  </div>
+</section>
+
+<section id="carte">
+  <div class="eyebrow">Carte mentale</div>
+  <h2>Egon au centre</h2>
+  <p class="intro">Chaque case est une branche. Clique pour l'ouvrir.</p>
+  <div class="map" id="map">
+    <button type="button" data-id="competences" aria-pressed="true">Compétences<small>UX/UI, wireframes, personas</small></button>
+    <button type="button" data-id="outils" aria-pressed="false">Outils<small>Figma, Wix</small></button>
+    <button type="button" data-id="passions" aria-pressed="false">Passions<small>Parkour, escalade, musique</small></button>
+    <button type="button" data-id="culture" aria-pressed="false">Culture<small>Belle, Rams, Manet</small></button>
+    <div class="center">Egon Bachy</div>
+    <button type="button" data-id="personnalite" aria-pressed="false">Personnalité<small>Curieux, autodidacte</small></button>
+    <button type="button" data-id="ambitions" aria-pressed="false">Ambitions<small>Devenir designer UX/UI</small></button>
+    <button type="button" data-id="folie" aria-pressed="false">MA FOLIE CRÉATIVE<small>Le jeu de cartes</small></button>
+    <button type="button" data-id="asolar" aria-pressed="false">Ce que j'apporte<small>Clarté, culture, terrain</small></button>
+  </div>
+  <div class="detail" id="detail" aria-live="polite"></div>
+</section>
+
+<section id="pourquoi">
+  <div class="eyebrow">Ma candidature</div>
+  <h2>Pourquoi m'engager</h2>
+  <div class="tiles">
+    <div class="tile"><h3>Quoi ?</h3><p>Une alternance UX/UI chez ASOLAR, du lundi au mercredi, un an minimum.</p></div>
+    <div class="tile"><h3>Qui ?</h3><p>Egon, curieux, autodidacte, traceur. Je préfère la ligne claire à l'effet.</p></div>
+    <div class="tile"><h3>Quand ?</h3><p>Maintenant, avec l'envie de progresser vite.</p></div>
+    <div class="tile"><h3>Pourquoi ?</h3><p>« Et tout devient possible » : c'est ma façon de créer. Lire l'obstacle, puis oser.</p></div>
+    <div class="tile"><h3>Où ?</h3><p>Dans une agence belge où le branding, la mise en page et la publicité créative sont au centre.</p></div>
+    <div class="tile"><h3>Comment ?</h3><p>Avec Figma, du code, ma culture, et l'IA pour apprendre plus vite. Un nouveau logiciel à tester : <b>[À CHOISIR]</b>.</p></div>
+  </div>
+  <div class="contact"><b>Egon Bachy · Designer UX/UI en formation (EFP Bruxelles)</b>egon.bachy@gmail.com · +32 474 29 87 13 · <a href="https://egonbachy-sudo.github.io/portfolio/">Mon portfolio</a></div>
+</section>
+
+</main>
+
+<footer><div class="wrap">Prototype de portfolio pour ASOLAR · © 2026 Egon Bachy</div></footer>
+
+<script>
+(function () {
+  Array.prototype.forEach.call(document.querySelectorAll('#hand .pc'), function (c) {
+    c.addEventListener('click', function () {
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    });
+  });
+  var data = {
+    competences: { t: 'Compétences', p: "Ce que je sais faire aujourd'hui, en première année d'alternance.", l: ['Design UX/UI : wireframes, personas, maquettes', 'Parcours interactifs', 'Création de sites web'] },
+    outils: { t: 'Outils', p: "Les outils déjà utilisés dans mes projets.", l: ['Figma (maquette du Déjeuner sur le feed)', 'Wix (site RideBack)'] },
+    passions: { t: 'Passions', p: "Ce que je pratique hors écran : des disciplines où l'on cherche le geste juste.", l: ['Parkour et escalade', 'Guitare et saxophone', 'Une écoute éclectique, en ce moment TeddyBear'] },
+    culture: { t: 'Culture', p: "Mes références relient le sport, le design et l'art.", l: ['David Belle et le parkour', 'Dieter Rams', 'Manet', 'Le futurisme de Boccioni', 'TeddyBear'] },
+    personnalite: { t: 'Personnalité', p: "Curieux, autodidacte, à l'écoute. Je préfère comprendre avant de décider.", l: ['Curiosité formée par la pratique', 'Écoute acquise sur le terrain', 'Goût de la simplicité'] },
+    ambitions: { t: 'Ambitions', p: "Apprendre auprès d'une équipe qui ose, et devenir un designer UX/UI complet.", l: ['Alternance du lundi au mercredi, dès maintenant, un an minimum', 'Un tuteur UX/UI pour progresser vite', 'Apprendre le branding et la direction artistique'] },
+    folie: { t: 'MA FOLIE CRÉATIVE', p: "Jusqu'où j'irais pour surprendre : envoyer ma candidature dans un vrai jeu de cartes, dessiné, imprimé et livré par moi.", l: ['5 cartes : mes références', 'Un joker avec un QR code vers ce site', 'Prêt à apprendre un nouveau logiciel pour le réaliser'] },
+    asolar: { t: "Ce que j'apporte", p: "Un regard UX/UI qui vise la lisibilité, une culture qui relie les domaines, et le sens du service acquis en réparation et en animation.", l: ['Lisibilité des interfaces', 'Références qui nourrissent les idées', 'Écoute du client'] }
+  };
+  var map = document.getElementById('map');
+  var detail = document.getElementById('detail');
+  function show(id) {
+    var d = data[id];
+    detail.innerHTML = '<h3></h3><p></p><ul></ul>';
+    detail.querySelector('h3').textContent = d.t;
+    detail.querySelector('p').textContent = d.p;
+    var ul = detail.querySelector('ul');
+    d.l.forEach(function (x) { var li = document.createElement('li'); li.textContent = x; ul.appendChild(li); });
+    Array.prototype.forEach.call(map.querySelectorAll('button'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-id') === id ? 'true' : 'false');
+    });
+  }
+  map.addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (b) show(b.getAttribute('data-id'));
+  });
+  show('competences');
+})();
+</script>
+</body>
+</html>
